@@ -8,7 +8,7 @@
 #' @param y Variable y. For our purposes, you will enter department here.
 #'
 #' @export
-t_test <- function(x,y) { #x is netball skills and y is department
+t_test <- function(x,y) {
 
 hr_mean <- mean(megabank_data$netball_skills[megabank_data$department == "hr"])
 cs_mean <- mean(megabank_data$netball_skills[megabank_data$department == "cs"])
@@ -22,12 +22,18 @@ mb_boxplot <- ggplot(data = megabank_data, aes(x= department, y = netball_skills
   geom_boxplot(col = "black")+
   ggtitle("Netball ability by department")
 
+density_plot <- ggplot(data = megabank_data, aes(x= netball_skills, fill = department)) +
+  geom_density()
+
+effect_size <- cohen.d(megabank_data$netball_skills[megabank_data$department == "hr"],megabank_data$netball_skills[megabank_data$department == "cs"])
+
 print(hr_mean)
 print(cs_mean)
 print(t_test_output)
 plot(bar_graph)
 plot(mb_boxplot)
-
+print(effect_size)
+print("There is an 83.4% chance that a person drawn at random from Human Resources will be better at netball than a person drawn at random from Customer Service.")
 }
 
 #Something to take the R output from the t-test and to make it pretty
