@@ -16,7 +16,20 @@ cs_mean <- mean(megabank_data$netball_skills[megabank_data$department == "cs"])
 t_test_output <- t.test(megabank_data$netball_skills[megabank_data$department == "hr"],megabank_data$netball_skills[megabank_data$department == "cs"])
 
 bar_graph <- ggplot(data = megabank_data, aes(x= netball_skills, fill = department)) +
-       geom_bar(stat = "count", position = "dodge", color = "black")
+  geom_bar(stat = "count", position = "dodge", color = "black")+
+  labs(
+    x = "Netball skills",
+    y = "Count",
+    title = "Netball Skills by Department",
+    caption = "There is an 83.4% chance that a person drawn at random from Human Resources
+    will be better at netball than a person drawn at random from Customer Service.") +
+  theme(
+    plot.title = element_text(size = 16, hjust = 0.5),
+    plot.caption = element_text(size = 12, hjust = 0.5))+
+  scale_fill_discrete(
+    name = "Department",
+    labels = c("Customer Service","Human Resources")
+  )
 
 effect_size <- cohen.d(megabank_data$netball_skills[megabank_data$department == "hr"],megabank_data$netball_skills[megabank_data$department == "cs"])
 
