@@ -1,26 +1,33 @@
 #' T test function
 #'
-#' Runs an independent samples t-test using our Megabank dataset.
+#' Runs an independent samples t-test using our Megabank dataset. Testing the difference in netball skills between the Human Resources and Customer Service departments.
 #'
 #' Takes the variables and returns some plots and results
 #'
-#' @param x Variable x
-#' @param y Variable y
+#' @param x Variable x. For our purposes, you will enter netball_skills here.
+#' @param y Variable y. For our purposes, you will enter department here.
 #'
 #' @export
 t_test <- function(x,y) { #x is netball skills and y is department
 
-mean(x[y == "hr"])
-mean(x[y == "cs"])
+hr_mean <- mean(megabank_data$netball_skills[megabank_data$department == "hr"])
+cs_mean <- mean(megabank_data$netball_skills[megabank_data$department == "cs"])
 
-t.test(x[y == "hr"],x[y == "cs"])
+t_test_output <- t.test(megabank_data$netball_skills[megabank_data$department == "hr"],megabank_data$netball_skills[megabank_data$department == "cs"])
 
-ggplot(data = megabank_data, aes(x= x, fill = y)) +
+bar_graph <- ggplot(data = megabank_data, aes(x= netball_skills, fill = department)) +
        geom_bar(stat = "count", position = "dodge", color = "black")
 
-ggplot(data = megabank_data, aes(x= y, y = x))+
+mb_boxplot <- ggplot(data = megabank_data, aes(x= department, y = netball_skills))+
   geom_boxplot(col = "black")+
   ggtitle("Netball ability by department")
+
+print(hr_mean)
+print(cs_mean)
+print(t_test_output)
+plot(bar_graph)
+plot(mb_boxplot)
+
 }
 
 #Something to take the R output from the t-test and to make it pretty
