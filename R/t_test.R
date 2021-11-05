@@ -10,12 +10,10 @@
 #' @export
 t_test <- function(x,y) {
 
-hr_mean <- mean(megabank_data$netball_skills[megabank_data$department == "hr"])
-cs_mean <- mean(megabank_data$netball_skills[megabank_data$department == "cs"])
+data("megabank_data")
+mb_data <- separate(megabank_data, col = department.netball_skills, into = c("department","netball_skills"))
 
-t_test_output <- t.test(megabank_data$netball_skills[megabank_data$department == "hr"],megabank_data$netball_skills[megabank_data$department == "cs"])
-
-bar_graph <- ggplot(data = megabank_data, aes(x= netball_skills, fill = department)) +
+bar_graph <- ggplot(data = mb_data, aes(x= netball_skills, fill = department)) +
   geom_bar(stat = "count", position = "dodge", color = "black")+
   labs(
     x = "Netball skills",
@@ -37,8 +35,6 @@ bar_graph <- ggplot(data = megabank_data, aes(x= netball_skills, fill = departme
     name = "Department",
     labels = c("Customer Service","Human Resources")
   )
-
-effect_size <- cohen.d(megabank_data$netball_skills[megabank_data$department == "hr"],megabank_data$netball_skills[megabank_data$department == "cs"])
 
 plot(bar_graph)
 }
