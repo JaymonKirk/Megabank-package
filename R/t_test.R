@@ -10,8 +10,9 @@
 #' @export
 t_test <- function(x,y) {
 
+#
 data("megabank_data")
-mb_data <- separate(megabank_data, col = department.netball_skills, into = c("department","netball_skills"))
+mb_data <- separate(megabank_data, col = x.y, into = c("department","netball_skills"))
 
 bar_graph <- ggplot(data = mb_data, aes(x= netball_skills, fill = department)) +
   geom_bar(stat = "count", position = "dodge", color = "black")+
