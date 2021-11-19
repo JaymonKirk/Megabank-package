@@ -10,9 +10,10 @@
 #' @export
 t_test <- function(x,y) {
 
-#
-data("megabank_data")
-mb_data <- separate(megabank_data, col = x.y, into = c("department","netball_skills"))
+netball_skills <- c(3,4,4,5,5,3,3,3,4,4,5,5,4,4,4,2,1,3,4,5,3,3,3,4,4,4,5,5,2,4,3,2,2,1,1,1,3,3,2,2,2,2,1,4,5,3,2,3,2,3,1,1,4,4,2,2,3,2,2,2)
+department <- c("hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "hr", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs", "cs")
+
+mb_data <- tibble(department, netball_skills)
 
 bar_graph <- ggplot(data = mb_data, aes(x= netball_skills, fill = department)) +
   geom_bar(stat = "count", position = "dodge", color = "black")+
@@ -21,7 +22,8 @@ bar_graph <- ggplot(data = mb_data, aes(x= netball_skills, fill = department)) +
     y = "Count",
     title = "Netball Skills by Department",
     caption = "
-    Human Resources mean = 3.73, Customer Service mean = 2.33
+    Human Resources: mean = 3.73, SD = 1.01
+    Customer Service: mean = 2.33, SD = 1.03
 
     t(58) = 5.31, p < .05
 
